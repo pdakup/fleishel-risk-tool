@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Risk Tolerance Questionnaire</title>
+  <style>
+    /* ==== COMPANY COLORS: CHANGE THESE TO YOUR REAL COLORS ==== */
+    :root {
+      --primary-color: #00523E;   /* main brand color */
+      --accent-color:  #3b8729;   /* secondary accent */
+      --light-bg:      #f5f7f9;   /* page background */
+      --card-border:   #d0d4da;
+    }
+
+    body {
+      /* ==== FONT FAMILY: CHANGE HERE ==== */
+      font-family: "Times New Roman", "Sanskrit Text", serif;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      line-height: 1.5;
+      background-color: var(--light-bg);
+    }
+
+    .header {
+      background-color: var(--card-border);
+      color: black;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header-subtitle {
+      font-size: 24px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: var(--primary-color);
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background-color: white;
+    }
+
+    .question-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
+
+    .scale-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .scale-row label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 1px solid var(--primary-color);
+      background: var(--accent-color);
+      color: white;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      font-size: 18px;
+      font-weight: bold;
+      background-color: white;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* ==== TABLE STYLING FOR QUESTION 2 ==== */
+    .portfolio-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .portfolio-table th,
+    .portfolio-table td {
+      border: 1px solid #ccc;
+      padding: 4px 6px;
+      text-align: center;
+    }
+
+    .portfolio-table th {
+      background-color: #eef2f5;
+    }
+
+    #chartContainer {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background-color: white;
+      text-align: center;
+      display: none; /* shown after we have a result */
+    }
+
+    #riskChartLabel {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==== HEADER WITH LOGO (CHANGE LOGO SOURCE + TEXT) ==== -->
+  <header class="header">
+    <!-- Replace "logo.png" with the actual path/filename of your company logo -->
+    <img src="fleishel-logo-design-rgb.png" alt="Company Logo" class="header-logo">
+    <div>
+      <div class="header-subtitle">Client Risk Tolerance Questionnaire</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <p style="text-align:center; margin-top: 10px;">
+      Please answer each question below. Your risk score and profile will be calculated at the end.
+    </p>
+
+    <!-- Q1 -->
+    <div class="question">
+      <div class="question-title">
+        1.) Based on your investment goals, which of the objectives profiled below best describes your desired investment approach?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q1" data-score="0">
+          A. Emphasis on preserving principal rather than growing assets
+        </label>
+        <label><input type="radio" name="q1" data-score="1">
+          B. Emphasis on maintaining purchasing power while generating current income
+        </label>
+        <label><input type="radio" name="q1" data-score="2">
+          C. Primary interest is in increasing portfolio value, with some potential for loss
+        </label>
+        <label><input type="radio" name="q1" data-score="3">
+          D. Opportunity for solid growth in assets with moderate to larger fluctuations in value
+        </label>
+        <label><input type="radio" name="q1" data-score="4">
+          E. Opportunity to maximize returns with high likelihood of large fluctuations in asset value
+        </label>
+      </div>
+    </div>
+
+    <!-- Q2 WITH TABLE -->
+    <div class="question">
+      <div class="question-title">
+        2.) Realizing that any market-based investment may move up or down in value over time, with which of the hypothetical portfolios below would you feel most comfortable?
+      </div>
+      <p>(Each row shows annual returns and a potential 5-year average return.)</p>
+
+      <table class="portfolio-table">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Year 1</th>
+            <th>Year 2</th>
+            <th>Year 3</th>
+            <th>Year 4</th>
+            <th>Year 5</th>
+            <th>Potential 5-Year Average Return</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label>
+                <input type="radio" name="q2" data-score="0"> A
+              </label>
+            </td>
+            <td>1%</td>
+            <td>5%</td>
+            <td>4%</td>
+            <td>5%</td>
+            <td>3%</td>
+            <td>3–4% (3.5%)</td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                <input type="radio" name="q2" data-score="1"> B
+              </label>
+            </td>
+            <td>9%</td>
+            <td>-8%</td>
+            <td>6%</td>
+            <td>3%</td>
+            <td>11%</td>
+            <td>4–5% (4.2%)</td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                <input type="radio" name="q2" data-score="2"> C
+              </label>
+            </td>
+            <td>6%</td>
+            <td>2%</td>
+            <td>12%</td>
+            <td>-10%</td>
+            <td>15%</td>
+            <td>5–7% (5.0%)</td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                <input type="radio" name="q2" data-score="3"> D
+              </label>
+            </td>
+            <td>-15%</td>
+            <td>10%</td>
+            <td>14%</td>
+            <td>4%</td>
+            <td>17%</td>
+            <td>6–8% (6.0%)</td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                <input type="radio" name="q2" data-score="4"> E
+              </label>
+            </td>
+            <td>-2%</td>
+            <td>23%</td>
+            <td>16%</td>
+            <td>-20%</td>
+            <td>24%</td>
+            <td>8–9% (8.2%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question">
+      <div class="question-title">
+        3.) Where would you place your investment philosophy on the following scale?
+      </div>
+      <p>
+        1 = Minimize loss and fluctuation as much as possible<br>
+        4–7 = A balanced investment mix with some fluctuation and growth<br>
+        8–10 = Maximum accumulation of assets regardless of risk or fluctuation
+      </p>
+      <div class="scale-row">
+        <label>1<br><input type="radio" name="q3" data-score="0"></label>
+        <label>2<br><input type="radio" name="q3" data-score="1"></label>
+        <label>3<br><input type="radio" name="q3" data-score="2"></label>
+        <label>4<br><input type="radio" name="q3" data-score="3"></label>
+        <label>5<br><input type="radio" name="q3" data-score="4"></label>
+        <label>6<br><input type="radio" name="q3" data-score="5"></label>
+        <label>7<br><input type="radio" name="q3" data-score="6"></label>
+        <label>8<br><input type="radio" name="q3" data-score="7"></label>
+        <label>9<br><input type="radio" name="q3" data-score="8"></label>
+        <label>10<br><input type="radio" name="q3" data-score="9"></label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question">
+      <div class="question-title">
+        4.) How do you define "risk" in regards to your investments?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q4" data-score="0">
+          A. The chance that I "lose money" and my returns are negative for any given period
+        </label>
+        <label><input type="radio" name="q4" data-score="2">
+          B. The degree to which my account value will fluctuate over time
+        </label>
+        <label><input type="radio" name="q4" data-score="4">
+          C. The chance that I do not meet my long-term return objective
+        </label>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question">
+      <div class="question-title">
+        5.) Most investments fluctuate over the short-term. If you made a $10,000 investment, with the intention of holding for ten years and it lost value during the first year, at what point would you sell and move to a more stable investment, rather than wait for a turnaround?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q5" data-score="0">
+          When it falls to $9,500
+        </label>
+        <label><input type="radio" name="q5" data-score="1">
+          When it falls to $9,000
+        </label>
+        <label><input type="radio" name="q5" data-score="2">
+          When it falls to $8,500
+        </label>
+        <label><input type="radio" name="q5" data-score="3">
+          When it falls to less than $8,000
+        </label>
+        <label><input type="radio" name="q5" data-score="4">
+          I would not sell
+        </label>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question">
+      <div class="question-title">
+        6.) Which factor do you consider the most important?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q6" data-score="4">
+          A. The average total return produced over the next 5-10 years
+        </label>
+        <label><input type="radio" name="q6" data-score="2">
+          B. The amount of current income the investment will generate
+        </label>
+        <label><input type="radio" name="q6" data-score="0">
+          C. Minimize decline in a "down" market
+        </label>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question">
+      <div class="question-title">
+        7.) What is most important for your investment portfolio?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q7" data-score="4">
+          A. Growth for income later
+        </label>
+        <label><input type="radio" name="q7" data-score="3">
+          B. Nominal growth with supplemental income now
+        </label>
+        <label><input type="radio" name="q7" data-score="2">
+          C. Income now
+        </label>
+        <label><input type="radio" name="q7" data-score="0">
+          D. Minimizing fluctuation
+        </label>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question">
+      <div class="question-title">
+        8.) How many years from today will you need to access more than 10% of your portfolio's value other than for supplemental income?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q8" data-score="4">
+          A. More than 20 years
+        </label>
+        <label><input type="radio" name="q8" data-score="3">
+          B. Within 11-20 years
+        </label>
+        <label><input type="radio" name="q8" data-score="2">
+          C. Within 5-10 years
+        </label>
+        <label><input type="radio" name="q8" data-score="0">
+          D. Within 1-4 years
+        </label>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question">
+      <div class="question-title">
+        9.) I need income from this portfolio…
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q9" data-score="4">
+          A. I do not need income from this portfolio
+        </label>
+        <label><input type="radio" name="q9" data-score="2">
+          B. To supplement my other forms of income
+        </label>
+        <label><input type="radio" name="q9" data-score="0">
+          C. This is all the income I have
+        </label>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question">
+      <div class="question-title">
+        10.) In the next five years you expect that your earned income will probably:
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q10" data-score="0">
+          A. Decrease
+        </label>
+        <label><input type="radio" name="q10" data-score="1">
+          B. Stay about the same
+        </label>
+        <label><input type="radio" name="q10" data-score="3">
+          C. Increase modestly
+        </label>
+        <label><input type="radio" name="q10" data-score="4">
+          D. Increase significantly
+        </label>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question">
+      <div class="question-title">
+        11.) The percentage of your total income that you currently save is approximately:
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q11" data-score="4">
+          A. Greater than 10%
+        </label>
+        <label><input type="radio" name="q11" data-score="3">
+          B. Between 5-10%
+        </label>
+        <label><input type="radio" name="q11" data-score="1">
+          C. Between 0-5%
+        </label>
+        <label><input type="radio" name="q11" data-score="0">
+          D. I do not currently save any income
+        </label>
+      </div>
+    </div>
+
+    <!-- Q12 (not scored) -->
+    <div class="question">
+      <div class="question-title">
+        12.) Are you concerned with minimizing taxes?
+      </div>
+      <div class="options">
+        <label><input type="radio" name="q12_taxconcern" value="Yes"> Yes</label>
+        <label><input type="radio" name="q12_taxconcern" value="No"> No</label>
+      </div>
+      <div style="margin-top: 8px;">
+        What is your marginal tax bracket?
+        <input type="text" id="taxBracket" placeholder="e.g., 22%">
+      </div>
+      <div class="note">Note: Question 12 is recorded for planning purposes but not included in the risk score.</div>
+    </div>
+
+    <button onclick="calculateScore()">Calculate My Risk Score</button>
+
+    <div id="result"></div>
+
+    <!-- ==== PIE CHART SECTION ==== -->
+    <div id="chartContainer">
+      <h2>Risk Profile Chart</h2>
+      <canvas id="riskChart" width="260" height="260"></canvas>
+      <div id="riskChartLabel"></div>
+    </div>
+
+  </div> <!-- end .content -->
+
+  <script>
+    function calculateScore() {
+      const questionNames = [
+        "q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"
+      ];
+
+      let totalScore = 0;
+      let unanswered = [];
+
+      questionNames.forEach((qName, index) => {
+        const selected = document.querySelector('input[name="' + qName + '"]:checked');
+        if (selected) {
+          const score = parseFloat(selected.getAttribute("data-score")) || 0;
+          totalScore += score;
+        } else {
+          unanswered.push(index + 1);
+        }
+      });
+
+      const resultDiv = document.getElementById("result");
+
+      if (unanswered.length > 0) {
+        resultDiv.innerHTML =
+          "Please answer all required questions before calculating. Missing: " +
+          unanswered.join(", ");
+        document.getElementById("chartContainer").style.display = "none";
+        return;
+      }
+
+      const maxRawScore = 49; // based on the data-score setup above
+      let scaledScore = (totalScore / maxRawScore) * 100;
+      scaledScore = Math.round(scaledScore);
+
+      let category = "";
+      if (scaledScore <= 20) {
+        category = "Conservative (0–20)";
+      } else if (scaledScore <= 40) {
+        category = "Moderate-Conservative (21–40)";
+      } else if (scaledScore <= 60) {
+        category = "Moderate (41–60)";
+      } else if (scaledScore <= 80) {
+        category = "Moderate-Aggressive (61–80)";
+      } else {
+        category = "Aggressive (81–100)";
+      }
+
+      const taxConcern = document.querySelector('input[name="q12_taxconcern"]:checked');
+      const taxBracket = document.getElementById("taxBracket").value;
+
+      let extraInfo = "";
+      if (taxConcern || taxBracket) {
+        extraInfo += "<br><br><span style='font-size:14px;font-weight:normal;'>";
+        extraInfo += "Tax considerations noted: ";
+        if (taxConcern) {
+          extraInfo += "Concerned with minimizing taxes? <strong>" + taxConcern.value + "</strong>. ";
+        }
+        if (taxBracket) {
+          extraInfo += "Marginal tax bracket: <strong>" + taxBracket + "</strong>.";
+        }
+        extraInfo += "</span>";
+      }
+
+      resultDiv.innerHTML =
+        "Your raw risk score is <strong>" + totalScore + "</strong> (out of 49).<br>" +
+        "Your scaled risk score is <strong>" + scaledScore + "/100</strong>.<br>" +
+        "Risk profile: <strong>" + category + "</strong>." +
+        extraInfo;
+
+      // Show and draw the pie chart
+      document.getElementById("chartContainer").style.display = "block";
+      drawRiskChart(scaledScore, category);
+    }
+
+    // ==== SIMPLE PIE CHART: risk score vs remaining capacity ====
+    function drawRiskChart(score, category) {
+      const canvas = document.getElementById("riskChart");
+      const ctx = canvas.getContext("2d");
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(centerX, centerY) - 10;
+
+      // Clear
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Convert score to angle
+      const scoreAngle = (score / 100) * 2 * Math.PI;
+
+      // Slice 1: score portion
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, 0, scoreAngle, false);
+      ctx.closePath();
+      ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent-color') || '#3b8729';
+      ctx.fill();
+
+      // Slice 2: remaining portion
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, scoreAngle, 2 * Math.PI, false);
+      ctx.closePath();
+      ctx.fillStyle = '#e0e0e0';
+      ctx.fill();
+
+      // Inner white circle for donut style
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius * 0.55, 0, 2 * Math.PI, false);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+
+      // Text in the middle
+      ctx.fillStyle = '#333333';
+      ctx.font = "bold 18px 'Times New Roman', serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(score + "%", centerX, centerY);
+
+      // Label under chart
+      const labelDiv = document.getElementById("riskChartLabel");
+      labelDiv.textContent = "Risk Profile: " + category;
+    }
+  </script>
+
+</body>
+</html>
