@@ -131,8 +131,11 @@
 
     .portfolio-table th,
     .portfolio-table td {
-      border: 1px solid #ccc;
-      padding: 4px 6px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 0;
+      border-right: 0;
+      padding: 6px 8px;
       text-align: center;
     }
 
@@ -155,6 +158,45 @@
       font-size: 14px;
       color: #333;
     }
+    /* ===== Question 3 Visual Scale ===== */
+.risk-scale {
+  margin-top: 10px;
+}
+
+.risk-bar {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+  align-items: end;
+}
+
+.risk-tick {
+  text-align: center;
+  font-size: 12px;
+}
+
+.risk-tick input {
+  margin-top: 6px;
+}
+
+.risk-zones {
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.zone {
+  padding: 8px;
+  border: 1px solid #ddd;
+  background: #f7f9fb;
+}
+
+.zone strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
   </style>
 </head>
 <body>
@@ -176,7 +218,7 @@
     <!-- Q1 -->
     <div class="question">
       <div class="question-title">
-        1.) Based on your investment goals, which of the objectives profiled below best describes your desired investment approach?
+        1. Based on your investment goals, which of the objectives profiled below best describes your desired investment approach?
       </div>
       <div class="options">
         <label><input type="radio" name="q1" data-score="0">
@@ -200,7 +242,7 @@
     <!-- Q2 WITH TABLE -->
     <div class="question">
       <div class="question-title">
-        2.) Realizing that any market-based investment may move up or down in value over time, with which of the hypothetical portfolios below would you feel most comfortable?
+        2. Realizing that any market-based investment may move up or down in value over time, with which of the hypothetical portfolios below would you feel most comfortable?
       </div>
       <p>(Each row shows annual returns and a potential 5-year average return.)</p>
 
@@ -288,32 +330,47 @@
 
     <!-- Q3 -->
     <div class="question">
-      <div class="question-title">
-        3.) Where would you place your investment philosophy on the following scale?
+  <div class="question-title">
+    3. Where would you place your investment philosophy on the following scale?
+  </div>
+
+  <div class="risk-scale">
+
+    <div class="risk-bar">
+      <div class="risk-tick">1<br><input type="radio" name="q3" data-score="0"></div>
+      <div class="risk-tick">2<br><input type="radio" name="q3" data-score="1"></div>
+      <div class="risk-tick">3<br><input type="radio" name="q3" data-score="2"></div>
+      <div class="risk-tick">4<br><input type="radio" name="q3" data-score="3"></div>
+      <div class="risk-tick">5<br><input type="radio" name="q3" data-score="4"></div>
+      <div class="risk-tick">6<br><input type="radio" name="q3" data-score="5"></div>
+      <div class="risk-tick">7<br><input type="radio" name="q3" data-score="6"></div>
+      <div class="risk-tick">8<br><input type="radio" name="q3" data-score="7"></div>
+      <div class="risk-tick">9<br><input type="radio" name="q3" data-score="8"></div>
+      <div class="risk-tick">10<br><input type="radio" name="q3" data-score="9"></div>
+    </div>
+
+    <div class="risk-zones">
+      <div class="zone">
+        <strong>1–3</strong>
+        Minimize loss and fluctuation as much as possible
       </div>
-      <p>
-        1 = Minimize loss and fluctuation as much as possible<br>
-        4–7 = A balanced investment mix with some fluctuation and growth<br>
-        8–10 = Maximum accumulation of assets regardless of risk or fluctuation
-      </p>
-      <div class="scale-row">
-        <label>1<br><input type="radio" name="q3" data-score="0"></label>
-        <label>2<br><input type="radio" name="q3" data-score="1"></label>
-        <label>3<br><input type="radio" name="q3" data-score="2"></label>
-        <label>4<br><input type="radio" name="q3" data-score="3"></label>
-        <label>5<br><input type="radio" name="q3" data-score="4"></label>
-        <label>6<br><input type="radio" name="q3" data-score="5"></label>
-        <label>7<br><input type="radio" name="q3" data-score="6"></label>
-        <label>8<br><input type="radio" name="q3" data-score="7"></label>
-        <label>9<br><input type="radio" name="q3" data-score="8"></label>
-        <label>10<br><input type="radio" name="q3" data-score="9"></label>
+      <div class="zone">
+        <strong>4–7</strong>
+        A balanced investment mix with some fluctuation and growth
+      </div>
+      <div class="zone">
+        <strong>8–10</strong>
+        Maximum accumulation of assets regardless of risk or fluctuation
       </div>
     </div>
+
+  </div>
+</div>
 
     <!-- Q4 -->
     <div class="question">
       <div class="question-title">
-        4.) How do you define "risk" in regards to your investments?
+        4. How do you define "risk" in regards to your investments?
       </div>
       <div class="options">
         <label><input type="radio" name="q4" data-score="0">
@@ -331,7 +388,7 @@
     <!-- Q5 -->
     <div class="question">
       <div class="question-title">
-        5.) Most investments fluctuate over the short-term. If you made a $10,000 investment, with the intention of holding for ten years and it lost value during the first year, at what point would you sell and move to a more stable investment, rather than wait for a turnaround?
+        5. Most investments fluctuate over the short-term. If you made a $10,000 investment, with the intention of holding for ten years and it lost value during the first year, at what point would you sell and move to a more stable investment, rather than wait for a turnaround?
       </div>
       <div class="options">
         <label><input type="radio" name="q5" data-score="0">
@@ -355,7 +412,7 @@
     <!-- Q6 -->
     <div class="question">
       <div class="question-title">
-        6.) Which factor do you consider the most important?
+        6. Which factor do you consider the most important?
       </div>
       <div class="options">
         <label><input type="radio" name="q6" data-score="4">
@@ -373,7 +430,7 @@
     <!-- Q7 -->
     <div class="question">
       <div class="question-title">
-        7.) What is most important for your investment portfolio?
+        7. What is most important for your investment portfolio?
       </div>
       <div class="options">
         <label><input type="radio" name="q7" data-score="4">
@@ -394,7 +451,7 @@
     <!-- Q8 -->
     <div class="question">
       <div class="question-title">
-        8.) How many years from today will you need to access more than 10% of your portfolio's value other than for supplemental income?
+        8. How many years from today will you need to access more than 10% of your portfolio's value other than for supplemental income?
       </div>
       <div class="options">
         <label><input type="radio" name="q8" data-score="4">
@@ -415,7 +472,7 @@
     <!-- Q9 -->
     <div class="question">
       <div class="question-title">
-        9.) I need income from this portfolio…
+        9. I need income from this portfolio…
       </div>
       <div class="options">
         <label><input type="radio" name="q9" data-score="4">
@@ -433,7 +490,7 @@
     <!-- Q10 -->
     <div class="question">
       <div class="question-title">
-        10.) In the next five years you expect that your earned income will probably:
+        10. In the next five years you expect that your earned income will probably:
       </div>
       <div class="options">
         <label><input type="radio" name="q10" data-score="0">
@@ -454,7 +511,7 @@
     <!-- Q11 -->
     <div class="question">
       <div class="question-title">
-        11.) The percentage of your total income that you currently save is approximately:
+        11. The percentage of your total income that you currently save is approximately:
       </div>
       <div class="options">
         <label><input type="radio" name="q11" data-score="4">
@@ -475,7 +532,7 @@
     <!-- Q12 (not scored) -->
     <div class="question">
       <div class="question-title">
-        12.) Are you concerned with minimizing taxes?
+        12. Are you concerned with minimizing taxes?
       </div>
       <div class="options">
         <label><input type="radio" name="q12_taxconcern" value="Yes"> Yes</label>
@@ -494,7 +551,7 @@
 
     <!-- ==== PIE CHART SECTION ==== -->
     <div id="chartContainer">
-      <h2>Risk Profile Chart</h2>
+      <h2>Risk Speedometer</h2>
       <canvas id="riskChart" width="260" height="260"></canvas>
       <div id="riskChartLabel"></div>
     </div>
@@ -571,57 +628,116 @@
 
       // Show and draw the pie chart
       document.getElementById("chartContainer").style.display = "block";
-      drawRiskChart(scaledScore, category);
+      drawSpeedometer(scaledScore, category);
     }
 
     // ==== SIMPLE PIE CHART: risk score vs remaining capacity ====
-    function drawRiskChart(score, category) {
-      const canvas = document.getElementById("riskChart");
-      const ctx = canvas.getContext("2d");
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const radius = Math.min(centerX, centerY) - 10;
+    function drawSpeedometer(score, category) {
+  const canvas = document.getElementById("riskChart");
+  const ctx = canvas.getContext("2d");
 
-      // Clear
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const w = canvas.width;
+  const h = canvas.height;
 
-      // Convert score to angle
-      const scoreAngle = (score / 100) * 2 * Math.PI;
+  // Clear
+  ctx.clearRect(0, 0, w, h);
 
-      // Slice 1: score portion
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.arc(centerX, centerY, radius, 0, scoreAngle, false);
-      ctx.closePath();
-      ctx.fillStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue('--accent-color') || '#3b8729';
-      ctx.fill();
+  // Gauge geometry
+  const cx = w / 2;
+  const cy = h * 0.85;              // move center down so semicircle fits
+  const radius = Math.min(w, h) * 0.42;
 
-      // Slice 2: remaining portion
-      ctx.beginPath();
-      ctx.moveTo(centerX, centerY);
-      ctx.arc(centerX, centerY, radius, scoreAngle, 2 * Math.PI, false);
-      ctx.closePath();
-      ctx.fillStyle = '#e0e0e0';
-      ctx.fill();
+  const startAngle = Math.PI;       // left
+  const endAngle = 0;               // right
 
-      // Inner white circle for donut style
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius * 0.55, 0, 2 * Math.PI, false);
-      ctx.fillStyle = '#ffffff';
-      ctx.fill();
+  // Get brand colors from CSS
+  const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || "#00523E";
+  const accent  = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim()  || "#3b8729";
 
-      // Text in the middle
-      ctx.fillStyle = '#333333';
-      ctx.font = "bold 18px 'Times New Roman', serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(score + "%", centerX, centerY);
+  // Helper: draw an arc "band"
+  function band(a0, a1, width, color) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, a0, a1, false);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.stroke();
+  }
 
-      // Label under chart
-      const labelDiv = document.getElementById("riskChartLabel");
-      labelDiv.textContent = "Risk Profile: " + category;
-    }
+  // Convert score ranges to angles
+  const toAngle = (val) => startAngle + (endAngle - startAngle) * (val / 100);
+
+  // Background arc
+  band(startAngle, endAngle, 22, "#e6e6e6");
+
+  // Color segments (match your bands)
+  band(toAngle(0),  toAngle(20),  22, "#c9c9c9"); // Conservative
+  band(toAngle(20), toAngle(40),  22, "#b7d7b7"); // Mod-Con
+  band(toAngle(40), toAngle(60),  22, "#9fcf9f"); // Moderate
+  band(toAngle(60), toAngle(80),  22, "#7fbe7f"); // Mod-Agg
+  band(toAngle(80), toAngle(100), 22, accent);    // Aggressive
+
+  // Tick marks (0, 20, 40, 60, 80, 100)
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 2;
+
+  function tick(val, len) {
+    const a = toAngle(val);
+    const x1 = cx + (radius - 16) * Math.cos(a);
+    const y1 = cy + (radius - 16) * Math.sin(a);
+    const x2 = cx + (radius - 16 - len) * Math.cos(a);
+    const y2 = cy + (radius - 16 - len) * Math.sin(a);
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    // label
+    const lx = cx + (radius - 16 - len - 18) * Math.cos(a);
+    const ly = cy + (radius - 16 - len - 18) * Math.sin(a);
+    ctx.fillStyle = "#333";
+    ctx.font = "12px 'Times New Roman', serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(val), lx, ly);
+  }
+
+  [0, 20, 40, 60, 80, 100].forEach(v => tick(v, 10));
+
+  // Needle
+  const needleAngle = toAngle(score);
+  const needleLen = radius - 28;
+
+  // Needle line
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(
+    cx + needleLen * Math.cos(needleAngle),
+    cy + needleLen * Math.sin(needleAngle)
+  );
+  ctx.strokeStyle = primary;
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Needle hub
+  ctx.beginPath();
+  ctx.arc(cx, cy, 8, 0, 2 * Math.PI);
+  ctx.fillStyle = primary;
+  ctx.fill();
+
+  // Score text
+  ctx.fillStyle = "#111";
+  ctx.font = "bold 20px 'Times New Roman', serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(score + "/100", cx, cy - 20);
+
+  // Category label under chart
+  const labelDiv = document.getElementById("riskChartLabel");
+  labelDiv.textContent = "Risk Profile: " + category;
+}
   </script>
 
 </body>
